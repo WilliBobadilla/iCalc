@@ -8,3 +8,4 @@ iOS calculator, still in process, just to show some basics of flutter.
 </p>
 
 ## Author :man:
+- Williams Bobadilla
