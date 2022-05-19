@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  List<String> stack = [];
+  RxString number = RxString("");
+  List<String> symbols = ["+/-", "%", "/", "X", "-", "+"];
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +17,36 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  void stackData(String data) {
+    print(data);
+    if (data == "AC") {
+      this.stack.clear();
+      number.value = "";
+    } else if (data == "=") {
+      this.stack.add(number.value); // add number
+      this.stack.add(data); // add symbol
+      number.value = ""; //erase from ui
+      calcResult(this.stack);
+    } else {
+      if (symbols.contains(data)) {
+        print("saving");
+        this.stack.add(number.value); // add number
+        this.stack.add(data); // add symbol
+        number.value = ""; //erase from ui
+      } else {
+        number.value = number.value + data;
+      }
+    }
+    print(this.stack.toString());
+  }
+
+  void calcResult(List<String> listData) {
+    print(listData);
+    listData.forEach((element) {
+      try {
+        int number = int.parse(element);
+      } catch (e) {}
+    });
+  }
 }

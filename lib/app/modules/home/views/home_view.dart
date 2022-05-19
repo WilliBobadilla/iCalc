@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+  Color numberColor = Color.fromARGB(255, 252, 252, 252);
+  Color numberBackground = Color.fromARGB(255, 114, 110, 102);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +21,16 @@ class HomeView extends GetView<HomeController> {
             Container(
               height: Get.height * 0.15,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
-                    children: [],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Obx(() => Text(
+                            controller.number.value,
+                            style: TextStyle(fontSize: 40, color: Colors.white),
+                          ))
+                    ],
                   ),
                 ],
               ),
@@ -34,22 +43,22 @@ class HomeView extends GetView<HomeController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    funcButton(
+                    button(
                       "AC",
                       Colors.black,
                       Color.fromARGB(255, 214, 212, 212),
                     ),
-                    funcButton(
+                    button(
                       "+/-",
                       Colors.black,
                       Color.fromARGB(255, 214, 212, 212),
                     ),
-                    funcButton(
+                    button(
                       "%",
                       Colors.black,
                       Color.fromARGB(255, 214, 212, 212),
                     ),
-                    funcButton(
+                    button(
                       "/",
                       Color.fromARGB(255, 253, 251, 251),
                       Color.fromARGB(255, 235, 169, 27),
@@ -62,9 +71,9 @@ class HomeView extends GetView<HomeController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    button(7),
-                    button(8),
-                    button(9),
+                    button("7", numberColor, numberBackground),
+                    button("8", numberColor, numberBackground),
+                    button("9", numberColor, numberBackground),
                     funcButton(
                       "X",
                       Color.fromARGB(255, 253, 251, 251),
@@ -78,9 +87,9 @@ class HomeView extends GetView<HomeController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    button(4),
-                    button(5),
-                    button(6),
+                    button("4", numberColor, numberBackground),
+                    button("5", numberColor, numberBackground),
+                    button("6", numberColor, numberBackground),
                     funcButton(
                       "-",
                       Color.fromARGB(255, 253, 251, 251),
@@ -94,9 +103,9 @@ class HomeView extends GetView<HomeController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    button(1),
-                    button(2),
-                    button(3),
+                    button("1", numberColor, numberBackground),
+                    button("2", numberColor, numberBackground),
+                    button("3", numberColor, numberBackground),
                     funcButton(
                       "+",
                       Color.fromARGB(255, 253, 251, 251),
@@ -113,7 +122,7 @@ class HomeView extends GetView<HomeController> {
                     zeroButton(),
                     funcButton(" . ", Colors.white, Colors.grey),
                     funcButton(
-                      "+",
+                      "=",
                       Color.fromARGB(255, 253, 251, 251),
                       Color.fromARGB(255, 235, 169, 27),
                     ),
@@ -127,14 +136,17 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget button(int number) {
+  Widget button(String button, Color textColor, Color backGroundColor) {
     return ElevatedButton(
       child: Text(
-        number.toString(),
-        style: TextStyle(fontSize: 24),
+        button,
+        style: TextStyle(fontSize: 30, color: textColor),
       ),
-      onPressed: () {},
+      onPressed: () {
+        controller.stackData(button);
+      },
       style: ElevatedButton.styleFrom(
+        primary: backGroundColor,
         fixedSize: Size(80, 80),
         shape: CircleBorder(),
       ),
@@ -147,7 +159,9 @@ class HomeView extends GetView<HomeController> {
         text,
         style: TextStyle(fontSize: 24, color: textColor),
       ),
-      onPressed: () {},
+      onPressed: () {
+        controller.stackData(text);
+      },
       style: ElevatedButton.styleFrom(
         primary: backGroundColor,
         fixedSize: Size(75, 75),
@@ -163,7 +177,7 @@ class HomeView extends GetView<HomeController> {
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),
             side: BorderSide(
-              color: Colors.teal,
+              color: Color.fromARGB(255, 97, 94, 76),
               width: 2.0,
             ),
           ),
